@@ -1,7 +1,8 @@
 "use client"
 
-import { DashboardLayout } from "@/components/dashboard/layout"
+import DashboardLayout from "@/app/dashboard/layout"
 import { motion } from "framer-motion"
+import { clsx } from "clsx"
 import { 
   Users, 
   TrendingUp, 
@@ -67,7 +68,7 @@ const recentCampaigns = [
 
 export default function InfluencerDashboard() {
   return (
-    <DashboardLayout role="influencer">
+    <DashboardLayout>
       <div className="space-y-8">
         {/* Welcome Section */}
         <div className="flex items-center justify-between">
