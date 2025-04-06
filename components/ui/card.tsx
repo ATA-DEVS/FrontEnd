@@ -1,31 +1,45 @@
+"use client"
+
 import * as React from "react"
 import { motion, HTMLMotionProps } from "framer-motion"
 import { cn } from "@/lib/utils"
+import Link from "next/link"
 
-const Card = React.forwardRef<
-  HTMLDivElement,
-  HTMLMotionProps<"div">
->(({ className, ...props }, ref) => (
-  <motion.div
-    ref={ref}
-    className={cn(
-      "group relative rounded-xl border border-[#2a2e45]/50",
-      "bg-gradient-to-br from-[#140047]/80 via-[#1a0066]/80 to-[#200080]/80",
-      "backdrop-blur-[8px]",
-      "shadow-[0_8px_30px_rgb(0,0,0,0.12)]",
-      "transition-all duration-300",
-      "hover:shadow-[0_8px_30px_rgb(0,0,0,0.24)]",
-      "hover:border-[#4f2da3]/50",
-      "after:absolute after:inset-0 after:rounded-xl after:bg-gradient-to-br after:from-transparent after:via-[#9575ff]/5 after:to-transparent after:opacity-0 after:transition-opacity after:duration-300 group-hover:after:opacity-100",
-      className
-    )}
-    whileHover={{ 
-      scale: 1.02,
-      transition: { duration: 0.2 }
-    }}
-    {...props}
-  />
-))
+interface CardProps extends HTMLMotionProps<"div"> {
+  href?: string
+  onClick?: () => void
+}
+
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ className, href, onClick, ...props }, ref) => {
+    const Component = href ? Link : motion.div
+    const componentProps = href ? { href } : { onClick }
+
+    return (
+      <Component
+        ref={ref as any}
+        className={cn(
+          "group relative rounded-xl border border-[#2a2e45]/50",
+          "bg-gradient-to-br from-[#140047]/80 via-[#1a0066]/80 to-[#200080]/80",
+          "backdrop-blur-[8px]",
+          "shadow-[0_8px_30px_rgb(0,0,0,0.12)]",
+          "transition-all duration-300",
+          "hover:shadow-[0_8px_30px_rgb(0,0,0,0.24)]",
+          "hover:border-[#4f2da3]/50",
+          "after:absolute after:inset-0 after:rounded-xl after:bg-gradient-to-br after:from-transparent after:via-[#9575ff]/5 after:to-transparent after:opacity-0 after:transition-opacity after:duration-300 group-hover:after:opacity-100",
+          "cursor-pointer",
+          className
+        )}
+        whileHover={{ 
+          scale: 1.02,
+          transition: { duration: 0.2 }
+        }}
+        {...componentProps}
+        {...props}
+      />
+    )
+  }
+)
 Card.displayName = "Card"
 
 const CardHeader = React.forwardRef<

@@ -16,6 +16,7 @@ import { AnimatedButton } from "@/components/animated-button"
 import { AnimatedInput } from "@/components/animated-input"
 import { motion } from "framer-motion"
 import { PageContainer } from "@/components/page-container"
+import { Button } from "@/components/ui/button"
 
 // Sample data for ad spaces
 const adSpaces = [
@@ -328,48 +329,41 @@ export default function AdSpacesPage() {
               )}
             </motion.div>
 
-            <AnimatedList className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" staggerDelay={0.05}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
               {filteredSpaces.map((space) => (
-                <AnimatedCard key={space.id}>
-                  <Card className="overflow-hidden">
-                    <CardHeader className="pb-3">
-                      <div className="flex justify-between items-start">
-                        <div className="bg-primary/10 p-2 rounded-lg">
-                          <space.icon className="h-5 w-5 text-primary" />
+                <Card key={space.id} href={`/ad-spaces/${space.id}`}>
+                  <CardHeader>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Badge variant="outline">{space.type}</Badge>
+                      <Badge variant="secondary">{space.category}</Badge>
+                    </div>
+                    <CardTitle>{space.title}</CardTitle>
+                    <CardDescription>{space.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-2 gap-4">
+                      {Object.entries(space.metrics).map(([key, value]) => (
+                        <div key={key} className="space-y-1">
+                          <p className="text-sm text-muted-foreground capitalize">
+                            {key.replace(/([A-Z])/g, " $1").trim()}
+                          </p>
+                          <p className="font-medium">{value}</p>
                         </div>
-                        <Badge variant="outline">{space.type}</Badge>
-                      </div>
-                      <CardTitle className="mt-4 text-xl">{space.title}</CardTitle>
-                      <CardDescription className="line-clamp-2 h-10">{space.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent className="pb-3">
-                      <div className="grid grid-cols-2 gap-2 text-sm mb-4">
-                        {Object.entries(space.metrics).map(([key, value]) => (
-                          <div key={key} className="flex flex-col">
-                            <span className="text-muted-foreground capitalize">{key}</span>
-                            <span className="font-medium">{value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                    <CardFooter className="flex justify-end items-center border-t pt-4">
-                      <Link href={`/ad-spaces/${space.id}`}>
-                        <AnimatedButton
-                          size="sm"
-                          className="gap-1"
-                          variant="ghost-primary"
-                          hoverScale={1.05}
-                          shimmer={true}
-                        >
-                          <Eye className="h-3.5 w-3.5" />
-                          View Details
-                        </AnimatedButton>
-                      </Link>
-                    </CardFooter>
-                  </Card>
-                </AnimatedCard>
+                      ))}
+                    </div>
+                  </CardContent>
+                  <CardFooter className="flex justify-between items-center">
+                    <div>
+                      <p className="text-2xl font-bold">${space.price}</p>
+                      <p className="text-sm text-muted-foreground">{space.priceModel}</p>
+                    </div>
+                    <Button variant="ghost-primary" size="sm">
+                      View Details
+                    </Button>
+                  </CardFooter>
+                </Card>
               ))}
-            </AnimatedList>
+            </div>
 
             {filteredSpaces.length === 0 && (
               <AnimatedContent className="text-center py-12">
