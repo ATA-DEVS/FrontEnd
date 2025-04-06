@@ -17,6 +17,7 @@ import { AnimatedInput } from "@/components/animated-input"
 import { motion } from "framer-motion"
 import { PageContainer } from "@/components/page-container"
 import { Button } from "@/components/ui/button"
+import { AnimatedBanner } from "@/components/animated-banner"
 
 // Sample data for ad spaces
 const adSpaces = [
@@ -207,37 +208,35 @@ export default function AdSpacesPage() {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <div className="flex-1">
+        <AnimatedBanner />
         <PageContainer>
-          <AnimatedContent>
-            <div className="container">
-              <div className="max-w-2xl mx-auto text-center">
-                <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">Browse Ad Platforms</h1>
-                <p className="text-gray-300 mb-8">
-                  Find the perfect advertising platform for your next campaign
-                </p>
-                <div className="flex justify-center gap-2">
-                  <AnimatedInput
-                    placeholder="Search ad platforms..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="max-w-lg"
-                  />
-                  <AnimatedButton onClick={applyFilters} variant="primary-gradient" hoverScale={1.02} sweep={true}>
-                    Search
-                  </AnimatedButton>
-                  <AnimatedButton
-                    variant="ghost-primary"
-                    onClick={() => setShowFilters(!showFilters)}
-                    className="gap-2"
-                    shimmer={true}
-                  >
-                    <Filter className="h-4 w-4" />
-                    Filters
-                  </AnimatedButton>
-                </div>
-              </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="container -mt-20 relative z-10"
+          >
+            <div className="flex justify-center gap-2">
+              <AnimatedInput
+                placeholder="Search ad platforms..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="max-w-lg"
+              />
+              <AnimatedButton onClick={applyFilters} variant="primary-gradient" hoverScale={1.02} sweep={true}>
+                Search
+              </AnimatedButton>
+              <AnimatedButton
+                variant="ghost-primary"
+                onClick={() => setShowFilters(!showFilters)}
+                className="gap-2"
+                shimmer={true}
+              >
+                <Filter className="h-4 w-4" />
+                Filters
+              </AnimatedButton>
             </div>
-          </AnimatedContent>
+          </motion.div>
 
           <div className="container py-8">
             <motion.div
