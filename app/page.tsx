@@ -23,7 +23,7 @@ export default function Home() {
       <div className="max-w-[1920px] mx-auto overflow-hidden relative pt-8">
         <PageContainer>
           <AnimatedContent>
-            <div className="container-narrow relative z-10 py-4 md:py-8">
+            <div className="container-narrow relative z-10 py-4 md:py-20">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

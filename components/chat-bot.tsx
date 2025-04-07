@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { MessageSquare, X, Send, Mic, Bot, ShoppingCart, HelpCircle } from "lucide-react"
+import { X, Send, Mic, Bot, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
@@ -163,17 +163,82 @@ export function ChatBot() {
         )}
       </AnimatePresence>
 
-      <Button
-        onClick={() => setIsOpen(!isOpen)}
-        size="lg"
-        className="rounded-full w-14 h-14 bg-[#9575ff] hover:bg-[#8a63ff] shadow-lg shadow-purple-500/20"
-      >
-        {isOpen ? (
-          <X className="h-6 w-6 text-white" />
-        ) : (
-          <MessageSquare className="h-6 w-6 text-white" />
-        )}
-      </Button>
+      <div className="relative">
+        {/* Animated stars */}
+        <motion.div
+          className="absolute -inset-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <motion.div
+            className="absolute -top-2 -right-2"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.5, 1, 0.5],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <Sparkles className="h-3 w-3 text-purple-400" />
+          </motion.div>
+          <motion.div
+            className="absolute -top-1 right-4"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.5, 1, 0.5],
+            }}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.3,
+            }}
+          >
+            <Sparkles className="h-2 w-2 text-blue-400" />
+          </motion.div>
+          <motion.div
+            className="absolute top-4 -right-1"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.5, 1, 0.5],
+            }}
+            transition={{
+              duration: 1.8,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.7,
+            }}
+          >
+            <Sparkles className="h-2.5 w-2.5 text-green-400" />
+          </motion.div>
+        </motion.div>
+
+        {/* Main button */}
+        <motion.div
+          onClick={() => setIsOpen(!isOpen)}
+          className="rounded-full w-14 h-14 bg-gradient-to-br from-[#140047] to-[#32147f] hover:from-[#1a0066] hover:to-[#3b1a8f] shadow-lg shadow-purple-500/20 cursor-pointer flex items-center justify-center relative overflow-hidden group"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {isOpen ? (
+            <X className="h-6 w-6 text-white" />
+          ) : (
+            <>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(147,51,234,0.1)_50%,transparent_100%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="flex items-center justify-center text-lg font-bold relative">
+                <span style={{ color: "#9333EA" }}>A</span>
+                <span style={{ color: "#3B82F6" }}>d</span>
+                <span style={{ color: "#10B981" }}>s</span>
+                <span style={{ color: "#F59E0B" }}>y</span>
+              </div>
+            </>
+          )}
+        </motion.div>
+      </div>
     </div>
   )
 } 

@@ -97,7 +97,7 @@ export function Navbar() {
           "transition-all duration-300",
           isScrolled && "shadow-xl bg-[#140047]/80 border-[#4f2da3]/40" // 80% opacity when scrolled
         )}>
-          <div className="flex items-center">
+          <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link href="/" className="flex items-center gap-4">
                 <div 
@@ -133,7 +133,8 @@ export function Navbar() {
                 </div>
               </Link>
             </div>
-            <div className="flex-1 flex justify-center">
+            
+            <div className="flex items-center gap-8">
               <NavigationMenu className="hidden md:flex">
                 <NavigationMenuList>
                   {routes.map((route) => (
@@ -221,29 +222,29 @@ export function Navbar() {
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
-            </div>
-            <div className="flex items-center gap-2">
-              <AnimatedButton
-                variant="ghost-primary"
-                className="relative overflow-hidden text-white hover:text-[#9575ff]"
-                hoverScale={1.02}
-                glowOnHover={true}
-                shimmer={true}
-                onClick={() => setIsSignInOpen(true)}
-              >
-                Sign In
-              </AnimatedButton>
-              <AnimatedButton
-                variant="primary-gradient"
-                className="relative overflow-hidden bg-[#9575ff] hover:bg-[#8a63ff] text-white"
-                hoverScale={1.02}
-                glowOnHover={true}
-                sweep={true}
-                onClick={() => setIsSignUpOpen(true)}
-              >
-                Get Started
-              </AnimatedButton>
-              <ModeToggle className="hidden" />
+
+              <div className="flex items-center gap-2">
+                <AnimatedButton
+                  variant="ghost-primary"
+                  className="relative overflow-hidden text-white hover:text-[#9575ff] h-10"
+                  hoverScale={1.02}
+                  glowOnHover={true}
+                  shimmer={true}
+                  onClick={() => setIsSignInOpen(true)}
+                >
+                  Sign In
+                </AnimatedButton>
+                <AnimatedButton
+                  variant="primary-gradient"
+                  className="relative overflow-hidden bg-[#9575ff] hover:bg-[#8a63ff] text-white h-10"
+                  hoverScale={1.02}
+                  glowOnHover={true}
+                  sweep={true}
+                  onClick={() => setIsSignUpOpen(true)}
+                >
+                  Get Started
+                </AnimatedButton>
+              </div>
             </div>
           </div>
         </div>

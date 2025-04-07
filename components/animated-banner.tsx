@@ -15,7 +15,7 @@ export function AnimatedBanner() {
     const resizeCanvas = () => {
       if (!canvas) return;
       canvas.width = window.innerWidth;
-      canvas.height = 320;
+      canvas.height = window.innerHeight;
     };
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
@@ -105,10 +105,10 @@ export function AnimatedBanner() {
   }, []);
 
   return (
-    <div className="relative w-full h-[320px] overflow-hidden bg-gradient-to-br from-[#1E0B4B] via-[#2D1B5A] to-[#3B2A69]">
+    <div className="relative w-full h-[400px] overflow-hidden bg-gradient-to-br from-[#1E0B4B] via-[#2D1B5A] to-[#3B2A69]">
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-[320px] mix-blend-plus-lighter"
+        className="absolute inset-0 w-full h-[400px] mix-blend-plus-lighter"
         style={{ zIndex: 0 }}
       />
       <div 

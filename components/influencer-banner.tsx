@@ -49,7 +49,7 @@ export function InfluencerBanner() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.icon = icons[Math.floor(Math.random() * icons.length)];
-        this.baseSize = Math.random() * 12 + 8; // Base size between 8 and 20
+        this.baseSize = Math.random() * 16 + 12; // Base size between 12 and 28
         this.size = this.baseSize;
         this.speedX = (Math.random() - 0.5) * 0.5; // Slower movement
         this.speedY = (Math.random() - 0.5) * 0.5;
