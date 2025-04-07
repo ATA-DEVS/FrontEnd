@@ -14,6 +14,7 @@ import { Footer } from "@/components/footer"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { PageContainer } from "@/components/page-container"
 import { AnimatedContent } from "@/components/animated-content"
+import { AnimatedBackground } from "@/components/animated-background"
 
 // Sample data for affiliates
 const affiliates = [
@@ -221,175 +222,177 @@ export default function AffiliatesPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <PageContainer>
-        <AnimatedContent>
-          <div className="container">
-            <div className="max-w-2xl mx-auto text-center">
-              <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">Affiliate Program</h1>
-              <p className="text-gray-300 mb-8">
-                Join our affiliate network and earn commissions by promoting our platform
-              </p>
-            </div>
-          </div>
-        </AnimatedContent>
-        
-        <div className="container py-8">
-          {showFilters && (
-            <Card className="mb-8">
-              <CardHeader>
-                <CardTitle>Filters</CardTitle>
-                <CardDescription>Refine your search with these filters</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Category</label>
-                    <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select category" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {categories.map((category) => (
-                          <SelectItem key={category} value={category}>
-                            {category}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
+    <div className="min-h-screen flex flex-col bg-[#0F0817]">
+      <AnimatedBackground />
+      <div className="relative z-10">
+        <Navbar />
+        <main className="flex-1">
+          <div className="container max-w-7xl mx-auto py-6 md:py-8 lg:py-10 px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col gap-8 items-center">
+              <div className="flex flex-col gap-4 text-center max-w-2xl mx-auto">
+                <h1 className="text-3xl md:text-4xl font-bold text-white">
+                  Affiliate Program
+                </h1>
+                <p className="text-lg text-white/70">
+                  Join our affiliate network and earn commissions by promoting our platform
+                </p>
+              </div>
 
-                  <div className="space-y-4">
-                    <div className="flex justify-between">
-                      <label className="text-sm font-medium">Commission Rate Range</label>
-                      <span className="text-sm text-muted-foreground">
-                        {commissionRange[0]}% - {commissionRange[1]}%
-                      </span>
-                    </div>
-                    <Slider
-                      defaultValue={[0, 30]}
-                      max={30}
-                      step={1}
-                      value={commissionRange}
-                      onValueChange={setCommissionRange}
-                    />
-                  </div>
+              <div className="flex flex-wrap gap-4 items-center justify-center w-full max-w-2xl">
+                <div className="flex-1 min-w-[240px] max-w-sm">
+                  <Input
+                    placeholder="Search affiliates..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="h-10 bg-white/5 border-white/10 text-white placeholder:text-white/50"
+                  />
                 </div>
-              </CardContent>
-              <CardFooter className="flex justify-between">
+                <Button 
+                  onClick={applyFilters} 
+                  className="h-10 bg-purple-600 text-white hover:bg-purple-700"
+                >
+                  Search
+                </Button>
                 <Button
                   variant="outline"
-                  onClick={() => {
-                    setSearchQuery("")
-                    setSelectedCategory("All Categories")
-                    setCommissionRange([0, 30])
-                    setFilteredAffiliates(affiliates)
-                  }}
+                  onClick={() => setShowFilters(!showFilters)}
+                  className="h-10 border-white/10 text-white hover:bg-white/5 gap-2"
                 >
-                  Reset Filters
+                  <Filter className="h-4 w-4" />
+                  Filters
                 </Button>
-                <Button onClick={applyFilters}>Apply Filters</Button>
-              </CardFooter>
-            </Card>
-          )}
+              </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredAffiliates.map((affiliate) => (
-              <Card key={affiliate.id} className="overflow-hidden">
-                <CardHeader className="pb-3">
-                  <div className="flex justify-between items-start">
-                    <Badge variant="outline">{affiliate.expertise}</Badge>
-                    <Badge variant="secondary">{affiliate.category}</Badge>
-                  </div>
-                  <div className="flex items-center gap-4 mt-4">
-                    <Avatar className="h-16 w-16 border-2 border-primary/10">
-                      <AvatarImage src={affiliate.avatar} alt={affiliate.name} />
-                      <AvatarFallback>{affiliate.name.charAt(0)}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <CardTitle className="text-xl flex items-center gap-2">
-                        {affiliate.name}
-                        {affiliate.verified && (
-                          <Badge variant="outline" className="h-5 text-xs">
-                            Verified
-                          </Badge>
-                        )}
-                      </CardTitle>
-                      <CardDescription className="text-sm">Affiliate Marketer</CardDescription>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="pb-3">
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{affiliate.description}</p>
-
-                  <div className="grid grid-cols-3 gap-2 text-sm mb-4">
-                    {Object.entries(affiliate.metrics).map(([key, value]) => (
-                      <div key={key} className="flex flex-col">
-                        <span className="text-muted-foreground capitalize">
-                          {key.replace(/([A-Z])/g, " $1").trim()}
-                        </span>
-                        <span className="font-medium">{value}</span>
+              {showFilters && (
+                <Card className="bg-white/5 border-white/10 w-full max-w-2xl">
+                  <CardContent className="p-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium text-white">Category</label>
+                        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                          <SelectTrigger className="bg-white/5 border-white/10 text-white">
+                            <SelectValue placeholder="Select category" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-[#1A0B2E] border-white/10">
+                            {categories.map((category) => (
+                              <SelectItem 
+                                key={category} 
+                                value={category}
+                                className="text-white hover:bg-white/5"
+                              >
+                                {category}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </div>
-                    ))}
-                  </div>
 
-                  <div className="flex items-center gap-2 mb-4">
-                    <div className="flex">
-                      {[...Array(5)].map((_, i) => (
-                        <svg
-                          key={i}
-                          className={`h-4 w-4 ${
-                            i < Math.floor(affiliate.rating) ? "text-yellow-500" : "text-gray-300"
-                          }`}
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M10 15.585l-7.07 3.707 1.35-7.87-5.72-5.573 7.91-1.149L10 0l3.53 7.7 7.91 1.149-5.72 5.573 1.35 7.87L10 15.585z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      ))}
+                      <div className="space-y-4">
+                        <div className="flex justify-between">
+                          <label className="text-sm font-medium text-white">Commission Rate</label>
+                          <span className="text-sm text-white/70">
+                            {commissionRange[0]}% - {commissionRange[1]}%
+                          </span>
+                        </div>
+                        <Slider
+                          defaultValue={[0, 30]}
+                          max={30}
+                          step={1}
+                          value={commissionRange}
+                          onValueChange={setCommissionRange}
+                          className="py-4"
+                        />
+                      </div>
                     </div>
-                    <span className="text-sm font-medium">{affiliate.rating}</span>
-                    <span className="text-xs text-muted-foreground">({affiliate.reviews} reviews)</span>
-                  </div>
+                  </CardContent>
+                </Card>
+              )}
 
-                  <div className="flex flex-wrap gap-1">
-                    {affiliate.tags.map((tag) => (
-                      <Badge key={tag} variant="secondary" className="text-xs">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-                <CardFooter className="flex justify-between items-center border-t pt-4">
-                  <div>
-                    <p className="text-sm font-medium">{affiliate.commissionRate}</p>
-                    <p className="text-xs text-muted-foreground">{affiliate.commissionModel}</p>
-                  </div>
-                  <Link href={`/affiliates/${affiliate.id}`}>
-                    <Button size="sm" className="gap-1">
-                      <Eye className="h-3.5 w-3.5" />
-                      View Profile
-                    </Button>
-                  </Link>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+                {filteredAffiliates.map((affiliate) => (
+                  <Card key={affiliate.id} className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                    <CardHeader>
+                      <div className="flex items-center gap-4">
+                        <Avatar className="h-12 w-12 border border-white/10">
+                          <AvatarImage src={affiliate.avatar} />
+                          <AvatarFallback className="bg-white/5 text-white">
+                            {affiliate.name.charAt(0)}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <CardTitle className="text-lg text-white">
+                              {affiliate.name}
+                            </CardTitle>
+                            {affiliate.verified && (
+                              <Badge variant="secondary" className="bg-purple-500/20 text-purple-300 border-purple-500/30">
+                                Verified
+                              </Badge>
+                            )}
+                          </div>
+                          <CardDescription className="text-white/70">{affiliate.expertise}</CardDescription>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-white/70 mb-4">{affiliate.description}</p>
+                      <div className="grid grid-cols-3 gap-4">
+                        <div>
+                          <div className="text-sm text-white/70">Conversions</div>
+                          <div className="text-lg font-semibold text-white">{affiliate.metrics.conversions}</div>
+                        </div>
+                        <div>
+                          <div className="text-sm text-white/70">Commission</div>
+                          <div className="text-lg font-semibold text-white">{affiliate.metrics.avgCommission}</div>
+                        </div>
+                        <div>
+                          <div className="text-sm text-white/70">Active</div>
+                          <div className="text-lg font-semibold text-white">{affiliate.metrics.activeClients}</div>
+                        </div>
+                      </div>
+                    </CardContent>
+                    <CardFooter className="flex justify-between border-t border-white/10">
+                      <div className="flex items-center gap-2">
+                        <div className="flex">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <svg
+                              key={star}
+                              className={`h-4 w-4 ${
+                                star <= affiliate.rating ? "text-purple-400" : "text-white/20"
+                              }`}
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                          ))}
+                        </div>
+                        <span className="text-sm text-white/70">
+                          ({affiliate.reviews})
+                        </span>
+                      </div>
+                      <Button 
+                        size="sm" 
+                        className="bg-purple-600 text-white hover:bg-purple-700"
+                      >
+                        View Profile
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                ))}
+              </div>
 
-          {filteredAffiliates.length === 0 && (
-            <div className="text-center py-12">
-              <h3 className="text-lg font-medium mb-2">No affiliates found</h3>
-              <p className="text-muted-foreground">Try adjusting your filters or search query</p>
+              {filteredAffiliates.length === 0 && (
+                <div className="text-center py-12">
+                  <h3 className="text-lg font-medium mb-2 text-white">No affiliates found</h3>
+                  <p className="text-white/70">Try adjusting your filters or search query</p>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      </PageContainer>
-      <Footer />
+          </div>
+        </main>
+        <Footer />
+      </div>
     </div>
   )
 }
