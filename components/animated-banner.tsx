@@ -105,13 +105,16 @@ export function AnimatedBanner() {
   }, []);
 
   return (
-    <div className="relative w-full h-[320px] overflow-hidden">
+    <div className="relative w-full h-[320px] overflow-hidden bg-gradient-to-br from-[#1E0B4B] via-[#2D1B5A] to-[#3B2A69]">
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-[320px]"
+        className="absolute inset-0 w-full h-[320px] mix-blend-plus-lighter"
         style={{ zIndex: 0 }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50" style={{ zIndex: 1 }} />
+      <div 
+        className="absolute inset-0 bg-gradient-to-b from-transparent via-[#1E0B4B]/50 to-[#1E0B4B]/90"
+        style={{ zIndex: 1 }}
+      />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

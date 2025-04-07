@@ -216,7 +216,7 @@ export default function AdSpacesPage() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="container -mt-20 relative z-10"
           >
-            <div className="flex justify-center gap-2">
+            <div className="flex justify-center gap-2 mt-8">
               <AnimatedInput
                 placeholder="Search ad platforms..."
                 value={searchQuery}
