@@ -227,8 +227,8 @@ export default function AffiliatesPage() {
       <div className="relative z-10">
         <Navbar />
         <main className="flex-1">
-          <div className="container max-w-7xl mx-auto py-6 md:py-8 lg:py-10 px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col gap-8 items-center">
+          <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col gap-8 items-center pt-24 md:pt-28 lg:pt-32">
               <div className="flex flex-col gap-4 text-center max-w-2xl mx-auto">
                 <h1 className="text-3xl md:text-4xl font-bold text-white">
                   Affiliate Program
