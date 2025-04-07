@@ -14,6 +14,7 @@ import { Footer } from "@/components/footer"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { PageContainer } from "@/components/page-container"
 import { AnimatedContent } from "@/components/animated-content"
+import { InfluencerBanner } from "@/components/influencer-banner"
 
 // Sample data for influencers
 const influencers = [
@@ -243,11 +244,12 @@ export default function InfluencersPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen bg-[#1E0B4B]">
       <Navbar />
       <div className="flex-1">
+        <InfluencerBanner />
         <PageContainer>
-          <AnimatedContent>
+          {/* <AnimatedContent>
             <div className="container">
               <div className="max-w-2xl mx-auto text-center">
                 <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">Influencer Marketing</h1>
@@ -256,7 +258,7 @@ export default function InfluencersPage() {
                 </p>
               </div>
             </div>
-          </AnimatedContent>
+          </AnimatedContent> */}
           
           <div className="container py-8">
             {showFilters && (

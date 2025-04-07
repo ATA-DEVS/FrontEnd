@@ -20,7 +20,7 @@ export function PageContainer({ children, className }: PageContainerProps) {
       />
       
       {/* Content with proper spacing */}
-      <div className={cn("relative pt-32 pb-16", className)}>
+      <div className={cn("relative pb-16", className)}>
         {children}
       </div>
     </>
