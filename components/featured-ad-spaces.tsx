@@ -1,277 +1,334 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Monitor, Mail, Smartphone, Instagram, Users, Eye, MousePointerClick, Activity, Clock } from "lucide-react";
 import { DisplayCards } from "@/components/ui/display-cards";
 import { Meteors } from "@/components/ui/meteors";
 
 export function FeaturedAdSpaces() {
-  // Website Cards
-  const websiteCards = [
-    {
-      icon: <Monitor className="size-4 text-[#9575ff]" />,
+  const [flippedCards, setFlippedCards] = useState<{ [key: string]: boolean }>({
+    website: false,
+    mobileApp: false,
+    socialMedia: false,
+  });
+
+  const toggleFlip = (card: string) => {
+    setFlippedCards(prev => ({
+      ...prev,
+      [card]: !prev[card]
+    }));
+  };
+
+  // Website Card Data
+  const websiteCard = {
+    front: {
+      icon: <Monitor className="size-5 text-[#9575ff]" />,
+      category: "Website",
+      cardKey: "website",
       title: "Tech Blog Premium Banner",
       description: "500K monthly visitors",
-      date: "$1,200 per month",
+      stats: [
+        { label: "Avg. Time on Site", value: "4.2 minutes" },
+        { label: "Page Views", value: "2.5M monthly" },
+        { label: "Target Audience", value: "Tech Professionals" }
+      ],
+      date: "R 8,500/month",
       iconClassName: "text-[#9575ff]",
       titleClassName: "text-[#9575ff]",
-      className: "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-tr before:from-transparent before:to-[#32147f]/50 before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
     },
-    {
-      icon: <Users className="size-4 text-[#9575ff]" />,
+    back: {
+      icon: <Users className="size-5 text-[#9575ff]" />,
+      category: "Website",
+      cardKey: "website",
       title: "Visitors & Impressions",
       description: "500K visitors • 2.5M impressions",
-      date: "3.2% CTR",
+      stats: [
+        { label: "Click-Through Rate", value: "3.2%" },
+        { label: "Conversion Rate", value: "2.8%" },
+        { label: "Bounce Rate", value: "15%" }
+      ],
+      date: "Premium Position Available",
       iconClassName: "text-[#9575ff]",
       titleClassName: "text-[#9575ff]",
-      className: "[grid-area:stack] translate-x-12 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-tr before:from-transparent before:to-[#32147f]/50 before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
-    },
-    {
-      icon: <Eye className="size-4 text-[#9575ff]" />,
-      title: "Banner • Tech • Premium",
-      description: "Top banner position",
-      date: "View Details",
-      iconClassName: "text-[#9575ff]",
-      titleClassName: "text-[#9575ff]",
-      className: "[grid-area:stack] translate-x-24 translate-y-20 hover:translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-tr before:from-transparent before:to-[#32147f]/50 before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
-    },
-  ];
+    }
+  };
 
-  // Newsletter Cards
-  const newsletterCards = [
-    {
-      icon: <Mail className="size-4 text-[#FA6565]" />,
-      title: "Weekly Finance Newsletter",
-      description: "50K subscribers",
-      date: "$800 per issue",
-      iconClassName: "text-[#FA6565]",
-      titleClassName: "text-[#FA6565]",
-      className: "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-tr before:from-transparent before:to-[#FA6565]/50 before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
-    },
-    {
-      icon: <Mail className="size-4 text-[#FA6565]" />,
-      title: "Readers & Engagement",
-      description: "32% open rate",
-      date: "8.5% click rate",
-      iconClassName: "text-[#FA6565]",
-      titleClassName: "text-[#FA6565]",
-      className: "[grid-area:stack] translate-x-12 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-tr before:from-transparent before:to-[#FA6565]/50 before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
-    },
-    {
-      icon: <Mail className="size-4 text-[#FA6565]" />,
-      title: "Newsletter • Finance • Weekly",
-      description: "Sponsored section",
-      date: "View Details",
-      iconClassName: "text-[#FA6565]",
-      titleClassName: "text-[#FA6565]",
-      className: "[grid-area:stack] translate-x-24 translate-y-20 hover:translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-tr before:from-transparent before:to-[#FA6565]/50 before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
-    },
-  ];
-
-  // Mobile App Cards
-  const mobileAppCards = [
-    {
-      icon: <Smartphone className="size-4 text-[#F9CA56]" />,
+  // Mobile App Card Data
+  const mobileAppCard = {
+    front: {
+      icon: <Smartphone className="size-5 text-[#F9CA56]" />,
+      category: "Mobile App",
+      cardKey: "mobileApp",
       title: "Fitness App In-App Ads",
       description: "200K active users",
-      date: "$1,500 per week",
+      stats: [
+        { label: "Daily Active Users", value: "85K" },
+        { label: "Avg. Session Time", value: "25 mins" },
+        { label: "User Demographics", value: "18-35 age" }
+      ],
+      date: "R 12,000/week",
       iconClassName: "text-[#F9CA56]",
       titleClassName: "text-[#F9CA56]",
-      className: "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-tr before:from-transparent before:to-[#F9CA56]/50 before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
     },
-    {
-      icon: <Activity className="size-4 text-[#F9CA56]" />,
+    back: {
+      icon: <Activity className="size-5 text-[#F9CA56]" />,
+      category: "Mobile App",
+      cardKey: "mobileApp",
       title: "Users & Activity",
-      description: "1.2M sessions",
-      date: "4.5 min engagement",
+      description: "1.2M sessions per week",
+      stats: [
+        { label: "Ad Engagement", value: "4.5%" },
+        { label: "Retention Rate", value: "78%" },
+        { label: "User Rating", value: "4.8/5" }
+      ],
+      date: "Premium Slots Available",
       iconClassName: "text-[#F9CA56]",
       titleClassName: "text-[#F9CA56]",
-      className: "[grid-area:stack] translate-x-12 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-tr before:from-transparent before:to-[#F9CA56]/50 before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
-    },
-    {
-      icon: <Smartphone className="size-4 text-[#F9CA56]" />,
-      title: "Mobile • In-App • Fitness",
-      description: "Native advertisements",
-      date: "View Details",
-      iconClassName: "text-[#F9CA56]",
-      titleClassName: "text-[#F9CA56]",
-      className: "[grid-area:stack] translate-x-24 translate-y-20 hover:translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-tr before:from-transparent before:to-[#F9CA56]/50 before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
-    },
-  ];
+    }
+  };
 
-  // Social Media Cards
-  const socialMediaCards = [
-    {
-      icon: <Instagram className="size-4 text-[#53E2D2]" />,
+  // Social Media Card Data
+  const socialMediaCard = {
+    front: {
+      icon: <Instagram className="size-5 text-[#53E2D2]" />,
+      category: "Social Media",
+      cardKey: "socialMedia",
       title: "Travel Influencer Promotion",
       description: "350K followers",
-      date: "$2,000 per post",
+      stats: [
+        { label: "Engagement Rate", value: "4.8%" },
+        { label: "Audience Reach", value: "120K avg" },
+        { label: "Content Type", value: "Photos & Reels" }
+      ],
+      date: "R 15,000/post",
       iconClassName: "text-[#53E2D2]",
       titleClassName: "text-[#53E2D2]",
-      className: "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-tr before:from-transparent before:to-[#53E2D2]/50 before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
     },
-    {
-      icon: <Users className="size-4 text-[#53E2D2]" />,
+    back: {
+      icon: <Users className="size-5 text-[#53E2D2]" />,
+      category: "Social Media",
+      cardKey: "socialMedia",
       title: "Reach & Engagement",
-      description: "4.8% engagement",
-      date: "120K reach",
+      description: "High-quality travel content",
+      stats: [
+        { label: "Story Views", value: "85K avg" },
+        { label: "Save Rate", value: "12%" },
+        { label: "Comment Rate", value: "3.2%" }
+      ],
+      date: "Collab Opportunities Open",
       iconClassName: "text-[#53E2D2]",
       titleClassName: "text-[#53E2D2]",
-      className: "[grid-area:stack] translate-x-12 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-tr before:from-transparent before:to-[#53E2D2]/50 before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
-    },
-    {
-      icon: <Instagram className="size-4 text-[#53E2D2]" />,
-      title: "Influencer • Social Media • Travel",
-      description: "Sponsored content",
-      date: "View Details",
-      iconClassName: "text-[#53E2D2]",
-      titleClassName: "text-[#53E2D2]",
-      className: "[grid-area:stack] translate-x-24 translate-y-20 hover:translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-gradient-to-tr before:from-transparent before:to-[#53E2D2]/50 before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
-    },
-  ];
+    }
+  };
+
+  const CardContent = ({ data, isFlipped, color }: any) => (
+    <div className="w-full h-full relative transform-gpu transition-all duration-700" style={{
+      transformStyle: 'preserve-3d',
+      transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+    }}>
+      {/* Front */}
+      <div className="absolute inset-0 w-full h-full backface-hidden">
+        <div className="h-full bg-black/20 backdrop-blur-md p-4 rounded-xl border border-white/20 hover:border-white/30 transition-all">
+          <div className="flex flex-col h-full">
+            {/* Header with Icon and Category */}
+            <div className="flex items-center justify-between mb-2">
+              <div className={`w-10 h-10 rounded-lg ${data.front.iconClassName} bg-black/30 backdrop-blur-sm flex items-center justify-center`}>
+                {data.front.icon}
+              </div>
+              <span className={`px-3 py-1 rounded-full text-sm font-medium ${data.front.iconClassName} bg-black/30 backdrop-blur-sm`}>
+                {data.front.category}
+              </span>
+            </div>
+
+            {/* Title and Description */}
+            <div className="mb-3">
+              <h3 className={`text-xl font-bold text-white mb-1`}>{data.front.title}</h3>
+              <p className="text-base text-white/90">{data.front.description}</p>
+            </div>
+
+            {/* Stats Grid */}
+            <div className="grid grid-cols-2 gap-2 flex-grow">
+              {data.front.stats.map((stat, index) => (
+                <div key={index} className="bg-black/30 backdrop-blur-sm rounded-lg p-2 hover:bg-black/40 transition-colors">
+                  <div className="text-white/70 text-xs mb-0.5">{stat.label}</div>
+                  <div className="text-white font-semibold text-sm">{stat.value}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom Section */}
+            <div className="mt-3 flex items-center justify-between pt-2 border-t border-white/10">
+              <div>
+                <div className="text-white/70 text-xs mb-0.5">Price</div>
+                <div className={`text-lg font-bold ${data.front.iconClassName}`}>{data.front.date}</div>
+              </div>
+              <button 
+                className={`px-4 py-1.5 rounded-lg bg-black/30 backdrop-blur-sm hover:bg-black/40 
+                  transition-all flex items-center gap-1 text-white font-medium group border border-white/10 hover:border-white/30`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleFlip(data.front.cardKey);
+                }}
+              >
+                <span>Flip</span>
+                <span className="text-base group-hover:translate-x-0.5 transition-transform">→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Back */}
+      <div className="absolute inset-0 w-full h-full backface-hidden" style={{ transform: 'rotateY(180deg)' }}>
+        <div className="h-full bg-black/20 backdrop-blur-md p-4 rounded-xl border border-white/20 hover:border-white/30 transition-all">
+          <div className="flex flex-col h-full">
+            {/* Header with Icon and Category */}
+            <div className="flex items-center justify-between mb-2">
+              <div className={`w-10 h-10 rounded-lg ${data.back.iconClassName} bg-black/30 backdrop-blur-sm flex items-center justify-center`}>
+                {data.back.icon}
+              </div>
+              <span className={`px-3 py-1 rounded-full text-sm font-medium ${data.back.iconClassName} bg-black/30 backdrop-blur-sm`}>
+                {data.back.category}
+              </span>
+            </div>
+
+            {/* Title and Description */}
+            <div className="mb-3">
+              <h3 className={`text-xl font-bold text-white mb-1`}>{data.back.title}</h3>
+              <p className="text-base text-white/90">{data.back.description}</p>
+            </div>
+
+            {/* Stats Grid */}
+            <div className="grid grid-cols-2 gap-2 flex-grow">
+              {data.back.stats.map((stat, index) => (
+                <div key={index} className="bg-black/30 backdrop-blur-sm rounded-lg p-2 hover:bg-black/40 transition-colors">
+                  <div className="text-white/70 text-xs mb-0.5">{stat.label}</div>
+                  <div className="text-white font-semibold text-sm">{stat.value}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom Section */}
+            <div className="mt-3 flex items-center justify-between pt-2 border-t border-white/10">
+              <div>
+                <div className="text-white/70 text-xs mb-0.5">Status</div>
+                <div className={`text-lg font-bold ${data.back.iconClassName}`}>{data.back.date}</div>
+              </div>
+              <button 
+                className={`px-4 py-1.5 rounded-lg bg-black/30 backdrop-blur-sm hover:bg-black/40 
+                  transition-all flex items-center gap-1 text-white font-medium group border border-white/10 hover:border-white/30`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleFlip(data.back.cardKey);
+                }}
+              >
+                <span className="text-base group-hover:-translate-x-0.5 transition-transform">←</span>
+                <span>Flip</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden py-8">
       <div className="absolute inset-0 bg-gradient-to-b from-[#32147f]/20 to-transparent" />
       <Meteors number={20} className="absolute inset-0" />
-      <div className="container mx-auto px-4 py-24 sm:px-6 lg:px-8 bg-gradient-to-br from-[#32147f] via-[#140047] to-[#140047] font-['Calibri',sans-serif] relative">
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="text-center mb-16">
+      <div className="container mx-auto px-4 relative">
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-8">
             <motion.h2 
-              className="text-4xl md:text-5xl font-bold text-yellow-400 mb-3 font-['Calibri',sans-serif]"
+              className="text-3xl md:text-4xl font-bold text-purple-400 mb-3"
               initial={{ opacity: 0, y: -20 }}
-              whileInView={{ 
+              animate={{ 
                 opacity: 1, 
                 y: 0,
                 transition: {
                   type: "spring",
-                  stiffness: 100,
-                  damping: 10,
-                  mass: 1
+                  stiffness: 300,
+                  damping: 10
                 }
               }}
-              viewport={{ once: true }}
+              whileHover={{
+                scale: 1.05,
+                transition: { duration: 0.2 }
+              }}
             >
               Featured Ad Spaces
             </motion.h2>
             <motion.p 
-              className="text-lg text-white/70 max-w-2xl mx-auto font-['Calibri',sans-serif]"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              className="text-base text-purple-300/90 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ 
+                opacity: 1, 
+                y: 0,
+                transition: {
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 12,
+                  delay: 0.2
+                }
+              }}
+              whileHover={{
+                scale: 1.02,
+                transition: { duration: 0.2 }
+              }}
             >
               Discover premium advertising opportunities across various platforms
             </motion.p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mt-12">
-            {/* Website */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-6">
+            {/* Website Card */}
             <motion.div 
-              className="relative min-h-[360px] flex justify-center items-center"
+              className="relative h-[350px] perspective"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              whileHover={{ scale: 1.02 }}
             >
-              <DisplayCards cards={websiteCards} />
-              <div className="absolute -bottom-6 left-0 right-0 text-center">
-                <motion.span 
-                  className="bg-[#0c0025]/80 px-4 py-1 rounded-full text-[#9575ff] font-semibold border border-[#4f2da3]/40"
-                  whileHover={{ 
-                    scale: 1.05,
-                    boxShadow: "0 0 8px rgba(149, 117, 255, 0.5)",
-                    borderColor: "rgba(149, 117, 255, 0.5)"
-                  }}
-                >
-                  Website
-                </motion.span>
+              <div className="w-full h-full">
+                <CardContent data={websiteCard} isFlipped={flippedCards.website} color="#9575ff" />
               </div>
-              <button className="mt-4 bg-[#9575ff]/80 text-white py-2 px-4 rounded-full hover:bg-[#9575ff] transition-all duration-300">
-                Browse
-              </button>
             </motion.div>
 
-            {/* Newsletter */}
+            {/* Mobile App Card */}
             <motion.div 
-              className="relative min-h-[360px] flex justify-center items-center"
+              className="relative h-[350px] perspective"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              whileHover={{ scale: 1.02 }}
             >
-              <DisplayCards cards={newsletterCards} />
-              <div className="absolute -bottom-6 left-0 right-0 text-center">
-                <motion.span 
-                  className="bg-[#0c0025]/80 px-4 py-1 rounded-full text-[#FA6565] font-semibold border border-[#4f2da3]/40"
-                  whileHover={{ 
-                    scale: 1.05,
-                    boxShadow: "0 0 8px rgba(250, 101, 101, 0.5)",
-                    borderColor: "rgba(250, 101, 101, 0.5)"
-                  }}
-                >
-                  Newsletter
-                </motion.span>
+              <div className="w-full h-full">
+                <CardContent data={mobileAppCard} isFlipped={flippedCards.mobileApp} color="#F9CA56" />
               </div>
-              <button className="mt-4 bg-[#FA6565]/80 text-white py-2 px-4 rounded-full hover:bg-[#FA6565] transition-all duration-300">
-                Browse
-              </button>
             </motion.div>
 
-            {/* Mobile App */}
+            {/* Social Media Card */}
             <motion.div 
-              className="relative min-h-[360px] flex justify-center items-center"
+              className="relative h-[350px] perspective"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              whileHover={{ scale: 1.02 }}
             >
-              <DisplayCards cards={mobileAppCards} />
-              <div className="absolute -bottom-6 left-0 right-0 text-center">
-                <motion.span 
-                  className="bg-[#0c0025]/80 px-4 py-1 rounded-full text-[#F9CA56] font-semibold border border-[#4f2da3]/40"
-                  whileHover={{ 
-                    scale: 1.05,
-                    boxShadow: "0 0 8px rgba(249, 202, 86, 0.5)",
-                    borderColor: "rgba(249, 202, 86, 0.5)"
-                  }}
-                >
-                  Mobile App
-                </motion.span>
+              <div className="w-full h-full">
+                <CardContent data={socialMediaCard} isFlipped={flippedCards.socialMedia} color="#53E2D2" />
               </div>
-              <button className="mt-4 bg-[#F9CA56]/80 text-white py-2 px-4 rounded-full hover:bg-[#F9CA56] transition-all duration-300">
-                Browse
-              </button>
-            </motion.div>
-
-            {/* Social Media */}
-            <motion.div 
-              className="relative min-h-[360px] flex justify-center items-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              whileHover={{ scale: 1.02 }}
-            >
-              <DisplayCards cards={socialMediaCards} />
-              <div className="absolute -bottom-6 left-0 right-0 text-center">
-                <motion.span 
-                  className="bg-[#0c0025]/80 px-4 py-1 rounded-full text-[#53E2D2] font-semibold border border-[#4f2da3]/40"
-                  whileHover={{ 
-                    scale: 1.05,
-                    boxShadow: "0 0 8px rgba(83, 226, 210, 0.5)",
-                    borderColor: "rgba(83, 226, 210, 0.5)"
-                  }}
-                >
-                  Social Media
-                </motion.span>
-              </div>
-              <button className="mt-4 bg-[#53E2D2]/80 text-white py-2 px-4 rounded-full hover:bg-[#53E2D2] transition-all duration-300">
-                Browse
-              </button>
             </motion.div>
           </div>
         </div>
       </div>
+      <style jsx global>{`
+        .perspective {
+          perspective: 2000px;
+        }
+        .backface-hidden {
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+        }
+      `}</style>
     </section>
   );
 } 
